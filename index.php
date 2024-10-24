@@ -1,5 +1,8 @@
 <?php
-if (!isset($_SESSION['user_id'])) {
+session_start();
+
+// Redirect to login page if not logged in
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
@@ -13,6 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FakeDocs - Dashboard</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Linking the external stylesheet -->
 </head>
 
 <body>
@@ -24,6 +28,7 @@ if (!isset($_SESSION['user_id'])) {
     </header>
     <main>
         <p>Dashboard contendo todos os documentos.</p>
+        <!-- Here you can list all the user’s documents -->
     </main>
 </body>
 
