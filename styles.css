@@ -51,7 +51,7 @@ label {
     color: #555;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -59,6 +59,22 @@ input[type="text"], input[type="password"] {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 14px;
+}
+
+/* Styles for upload section */
+.upload-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 20px auto; /* Center the upload box */
+}
+
+.upload-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 button[type="submit"] {
@@ -79,4 +95,11 @@ button[type="submit"]:hover {
 #error-message {
     color: red;
     margin-top: 10px;
+}
+
+/* Additional styles for error message on upload */
+.upload-error {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
 }
