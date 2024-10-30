@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
             if (!unlink($filePath)) {
                 // Handle error in deleting file from filesystem
                 $_SESSION['error'] = "Failed to delete file from the server.";
-                header("Location: index.php");
+                header("Location: dashboard.php");
                 exit();
             }
         }
@@ -51,12 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
         if ($stmt->affected_rows > 0) {
             // Set a success message in session and redirect
             $_SESSION['message'] = "Document deleted successfully.";
-            header("Location: index.php");
+            header("Location: dashboard.php");
             exit();
         } else {
             // Handle error in deleting from database
             $_SESSION['error'] = "Failed to delete the document from the database.";
-            header("Location: index.php");
+            header("Location: dashboard.php");
             exit();
         }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
     } else {
         // Handle the case where the document does not exist
         $_SESSION['error'] = "Document not found.";
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit();
     }
 }

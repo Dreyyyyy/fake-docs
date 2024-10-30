@@ -29,12 +29,12 @@ if (isset($_GET['id'])) {
     if (!$document) {
         // Handle document not found
         $_SESSION['error'] = "Documento não encontrado.";
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit();
     }
 } else {
     // Redirect if no ID is provided
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_file'])) {
     <header>
         <h1>Visualizar Documento</h1>
         <nav>
-            <a href="index.php">Voltar para o painel</a>
+            <a href="dashboard.php">Voltar para o painel</a>
         </nav>
     </header>
     <main>

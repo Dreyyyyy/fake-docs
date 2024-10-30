@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
         if ($password == $storedPassword) {
             $_SESSION['username'] = $username; // Start session on successful login
             $_SESSION['user_id'] = $userId; // Store user ID in session
-            header("Location: index.php"); // Redirect to dashboard
+            header("Location: dashboard.php"); // Redirect to dashboard
             exit();
         } else {
             $error = "Nome de usuário ou senha inválida!"; // Set error message
@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
     $stmt->close();
 }
 
-// If the user is already logged in, redirect to index.php
+// If the user is already logged in, redirect to dashboard.php
 if (isset($_SESSION['username'])) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 }
 ?>

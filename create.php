@@ -33,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
 
         // Redirect back to the dashboard with a success message
         $_SESSION['message'] = "Documento criado com sucesso.";
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit();
     } else {
         // Handle error in file creation
         $_SESSION['error'] = "Falha ao criar o documento.";
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit();
     }
 }
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
             </div>
             <button type="submit" name="create_file">Criar</button>
         </form>
-        <p><a href="index.php">Voltar para o painel</a></p>
+        <p><a href="dashboard.php">Voltar para o painel</a></p>
     </main>
 </body>
 </html>
