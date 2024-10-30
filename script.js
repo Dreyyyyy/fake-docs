@@ -11,3 +11,8 @@ document.querySelector('form').addEventListener('submit', function (e) {
         errorMessage.innerText = ""; // Clear error message if form is valid
     }
 });
+
+function toggleForm() {
+    const form = document.getElementById('createFileForm');
+    form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+}

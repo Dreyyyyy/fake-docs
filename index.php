@@ -1,43 +1,48 @@
 <?php
 session_start();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Redirect to login page if not logged in
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Define the directory to store uploaded files
-$uploadDir = 'uploads/';
-$documents = [];
+include 'db.php'; // Include the database connection file
 
-// Scan the uploads directory for .txt files
-if (is_dir($uploadDir)) {
-    $files = scandir($uploadDir);
-    foreach ($files as $file) {
-        if (pathinfo($file, PATHINFO_EXTENSION) === 'txt') {
-            $documents[] = $file;
-        }
-    }
+// Fetch documents from the database
+$documents = [];
+$sql = "SELECT id, file_name, file_data FROM documents WHERE user_id = ?"; // Include file_data in the SELECT statement
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $_SESSION['user_id']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $documents[] = $row; // Store each document in the array
 }
+
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FakeDocs - Dashboard</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Linking the external stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <header>
-        <h1>Bem vindo ao FakeDocs, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
+        <h1>Bem-vindo ao FakeDocs, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
         <nav>
             <a href="logout.php">Deslogar</a>
+            <a href="create.php">Criar Novo Documento</a> <!-- Link to create.php -->
         </nav>
     </header>
     <main>
@@ -47,21 +52,29 @@ if (is_dir($uploadDir)) {
                 <tr>
                     <th>ID</th>
                     <th>Nome do Documento</th>
+                    <th>Conteúdo</th> <!-- New column for document content -->
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($documents)): ?>
                     <tr>
-                        <td colspan="3">Nenhum documento encontrado.</td>
+                        <td colspan="4">Nenhum documento encontrado.</td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach ($documents as $index => $document): ?>
+                    <?php foreach ($documents as $document): ?>
                         <tr>
-                            <td><?php echo $index + 1; ?></td>
-                            <td><?php echo htmlspecialchars($document); ?></td>
+                            <td><?php echo htmlspecialchars($document['id']); ?></td>
+                            <td><?php echo htmlspecialchars($document['file_name']); ?></td>
                             <td>
-                                <a href="<?php echo htmlspecialchars($uploadDir . $document); ?>" target="_blank">Visualizar</a>
+                                <div><?php echo htmlspecialchars_decode($document['file_data']); ?></div> <!-- Display the HTML content -->
+                            </td>
+                            <td>
+                                <a href="view.php?id=<?php echo htmlspecialchars($document['id']); ?>">Editar</a>
+                                <form action="delete.php" method="post" style="display:inline;">
+                                    <input type="hidden" name="document_id" value="<?php echo htmlspecialchars($document['id']); ?>">
+                                    <button type="submit" name="delete_file" onclick="return confirm('Tem certeza que deseja deletar este documento?');">Deletar</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -69,15 +82,16 @@ if (is_dir($uploadDir)) {
             </tbody>
         </table>
 
-        <h3>Upload de Documentos</h3>
-        <form action="upload.php" method="post" enctype="multipart/form-data">
-            <div class="input-group">
-                <label for="document">Selecionar Documento:</label>
-                <input type="file" id="document" name="document" accept=".txt" required>
-            </div>
-            <button type="submit">Upload</button>
-        </form>
+        <!-- Success/Error Messages -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <p class="success"><?php echo htmlspecialchars($_SESSION['message']); ?></p>
+            <?php unset($_SESSION['message']); ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['error'])): ?>
+            <p class="error"><?php echo htmlspecialchars($_SESSION['error']); ?></p>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
     </main>
 </body>
-
 </html>

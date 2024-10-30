@@ -2,16 +2,7 @@
 session_start();
 
 // Database connection
-$host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbname = "fake-docs";
-
-$conn = new mysqli($host, $dbUsername, $dbPassword, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexão falhou!: " . $conn->connect_error);
-}
+include 'db.php'; // Include the database connection file
 
 $error = ""; // Initialize an error message variable
 
@@ -20,19 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Prepare statement to get the plain password
-    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
+    // Prepare statement to get the password and user ID
+    $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $storedPassword = $row['password']; // Get the plain text password from DB
+        $storedPassword = $row['password']; // Get the stored password
+        $userId = $row['id']; // Get the user ID
 
         // Compare the entered password with the stored one
         if ($password == $storedPassword) {
             $_SESSION['username'] = $username; // Start session on successful login
+            $_SESSION['user_id'] = $userId; // Store user ID in session
             header("Location: index.php"); // Redirect to dashboard
             exit();
         } else {
