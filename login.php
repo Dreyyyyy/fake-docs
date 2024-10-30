@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($
         $storedPassword = $row['password']; // Get the stored password
         $userId = $row['id']; // Get the user ID
 
-        // Compare the entered password with the stored one
-        if ($password == $storedPassword) {
+        // Use password_verify to check the password
+        if (password_verify($password, $storedPassword)) {
             $_SESSION['username'] = $username; // Start session on successful login
             $_SESSION['user_id'] = $userId; // Store user ID in session
             header("Location: dashboard.php"); // Redirect to dashboard
@@ -71,6 +71,11 @@ if (isset($_SESSION['username'])) {
         <?php if (!empty($error)): ?>
             <p id="error-message"><?php echo $error; ?></p>
         <?php endif; ?>
+        
+        <!-- Register button -->
+        <div class="register-container">
+            <p>Ainda não tem uma conta? <a href="register.php">Registre-se aqui</a></p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

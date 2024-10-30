@@ -48,10 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_file'])) {
     $updateStmt->bind_param("si", $updatedContent, $documentId);
     
     if ($updateStmt->execute()) {
-        // Save the content to the file
-        $filePath = "uploads/" . $document['file_name'];
-        file_put_contents($filePath, $updatedContent);
-
         $_SESSION['message'] = "Documento atualizado com sucesso.";
     } else {
         $_SESSION['error'] = "Erro ao atualizar o documento.";

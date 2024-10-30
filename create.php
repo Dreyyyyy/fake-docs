@@ -19,28 +19,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
     $fileName = $_POST['file_name'];
     $fileContent = $_POST['file_content']; // This will contain HTML now
 
-    // Path where the file will be created (make sure this path is writable)
-    $filePath = "uploads/" . basename($fileName); // Ensure you have a folder named 'uploads'
+    // Debug: Log the file name and content
+    error_log("File Name: " . $fileName);
+    error_log("File Content: " . $fileContent);
 
-    // Create the file with the specified content
-    if (file_put_contents($filePath, $fileContent) !== false) {
-        // Insert file info into the database
-        $sql = "INSERT INTO documents (user_id, file_name, file_data, upload_date) VALUES (?, ?, ?, NOW())";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iss", $_SESSION['user_id'], $fileName, $fileContent);
-        $stmt->execute();
-        $stmt->close();
-
-        // Redirect back to the dashboard with a success message
-        $_SESSION['message'] = "Documento criado com sucesso.";
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        // Handle error in file creation
-        $_SESSION['error'] = "Falha ao criar o documento.";
+    // Insert file info into the database
+    $sql = "INSERT INTO documents (user_id, file_name, file_data, upload_date) VALUES (?, ?, ?, NOW())";
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        error_log("SQL Prepare Error: " . $conn->error);
+        $_SESSION['error'] = "Falha ao preparar a consulta.";
         header("Location: dashboard.php");
         exit();
     }
+
+    // Bind parameters: user_id, file_name, file_content
+    $stmt->bind_param("iss", $_SESSION['user_id'], $fileName, $fileContent);
+    if ($stmt->execute() === false) {
+        error_log("SQL Execute Error: " . $stmt->error);
+        $_SESSION['error'] = "Falha ao inserir o documento no banco de dados.";
+        $stmt->close();
+        header("Location: dashboard.php");
+        exit();
+    }
+
+    $stmt->close();
+
+    // Redirect back to the dashboard with a success message
+    $_SESSION['message'] = "Documento criado com sucesso.";
+    header("Location: dashboard.php");
+    exit();
 }
 ?>
 
@@ -99,6 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
             <button type="submit" name="create_file">Criar</button>
         </form>
         <p><a href="dashboard.php">Voltar para o painel</a></p>
+
+        <!-- Display error message if it exists -->
+        <?php if (isset($_SESSION['error'])): ?>
+            <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
+        <?php endif; ?>
+        
+        <!-- Display success message if it exists -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <p style="color: green;"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></p>
+        <?php endif; ?>
     </main>
 </body>
 </html>
