@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2024 at 08:50 PM
+-- Generation Time: Oct 30, 2024 at 10:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,8 @@ CREATE TABLE `documents` (
 --
 
 INSERT INTO `documents` (`id`, `user_id`, `file_name`, `file_data`, `upload_date`) VALUES
-(53, 1, 'teste', 0x3c703e54657374653c2f703e, '2024-10-30 19:30:35'),
-(54, 1, 'teste2', 0x3c703e7465737465322061776161613c2f703e, '2024-10-30 19:47:17');
+(53, 1, 'teste', 0x3c703e5465737465203233323133313c2f703e, '2024-10-30 19:30:35'),
+(55, 4, 'awaa', 0x3c703e617761613c2f703e, '2024-10-30 21:03:16');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +62,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- Constraints for dumped tables
