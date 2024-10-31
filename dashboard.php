@@ -38,13 +38,17 @@ $stmt->close();
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <!-- Apply the .dashboard-header class here -->
+    <header class="dashboard-header">
         <h1>Bem-vindo ao FakeDocs, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
         <nav>
-            <a href="logout.php">Deslogar</a>
-            <a href="create.php">Criar Novo Documento</a> <!-- Link to create.php -->
+            <div class="nav-links">
+                <a href="logout.php">Deslogar</a>
+                <a href="create.php">Criar Novo Documento</a>
+            </div>
         </nav>
     </header>
+
     <main>
         <h2>Seus Documentos</h2>
         <table>
@@ -52,7 +56,7 @@ $stmt->close();
                 <tr>
                     <th>ID</th>
                     <th>Nome do Documento</th>
-                    <th>Conteúdo</th> <!-- New column for document content -->
+                    <th>Conteúdo</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -67,13 +71,13 @@ $stmt->close();
                             <td><?php echo htmlspecialchars($document['id']); ?></td>
                             <td><?php echo htmlspecialchars($document['file_name']); ?></td>
                             <td>
-                                <div><?php echo htmlspecialchars_decode($document['file_data']); ?></div> <!-- Display the HTML content -->
+                                <div><?php echo htmlspecialchars_decode($document['file_data']); ?></div>
                             </td>
                             <td>
-                                <a href="view.php?id=<?php echo htmlspecialchars($document['id']); ?>">Editar</a>
+                                <a href="view.php?id=<?php echo htmlspecialchars($document['id']); ?>" class="edit-button">Editar</a>
                                 <form action="delete.php" method="post" style="display:inline;">
                                     <input type="hidden" name="document_id" value="<?php echo htmlspecialchars($document['id']); ?>">
-                                    <button type="submit" name="delete_file" onclick="return confirm('Tem certeza que deseja deletar este documento?');">Deletar</button>
+                                    <button type="submit" name="delete_file" class="delete-button" onclick="return confirm('Tem certeza que deseja deletar este documento?');">Deletar</button>
                                 </form>
                             </td>
                         </tr>

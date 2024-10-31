@@ -1,105 +1,231 @@
-/* General body styles for all pages */
-body {
-    font-family: Arial, sans-serif;
+/* Reset/Normalize */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
-/* Styles specific to dashboard.php (dashboard) */
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark gray text */
+}
+
+/* Header styling for all pages */
 header {
-    background-color: #f0f0f0;
-    padding: 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px;
     text-align: center;
 }
 
-nav {
-    margin-top: 10px;
+/* Specific header styling for the dashboard */
+.dashboard-header h1 {
+    font-size: 24px; /* Title size */
+    margin: 0;
 }
 
+/* Navigation links */
 nav a {
-    color: blue;
-    text-decoration: none;
-    padding: 10px 20px;
-    border: 1px solid blue;
-    border-radius: 5px;
+    color: #fff; /* White text */
+    text-decoration: none; /* No underline */
+    padding: 8px 15px; /* Padding for buttons */
+    background-color: #007bff; /* Blue background */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 5px; /* Margin between links */
+    font-size: 16px; /* Font size */
 }
 
-/* Styles specific to login page (index.html) */
+nav a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Main content styling */
+main {
+    padding: 20px;
+    max-width: 900px; /* Max width of the main content */
+    margin: 20px auto; /* Center the main content */
+    background-color: #fff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Table styling */
+table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+table th, table td {
+    padding: 12px; /* Cell padding */
+    text-align: left; /* Left alignment */
+    border-bottom: 1px solid #ddd; /* Bottom border */
+}
+
+table th {
+    background-color: #f2f2f2; /* Light gray header */
+    font-weight: bold; /* Bold text */
+}
+
+table td div {
+    max-width: 300px; /* Max width for text */
+    white-space: nowrap; /* No wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Ellipsis for overflow text */
+}
+
+/* Button and link styling */
+table a, form button {
+    font-weight: bold; /* Bold text */
+}
+
+/* Styling for the Editar button */
+.edit-button {
+    background-color: #007bff; /* Primary blue color */
+    color: white; /* White text */
+    padding: 10px 15px; /* Increased padding for button */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold text */
+    display: inline-flex; /* Flexbox for icon and text alignment */
+    align-items: center; /* Center items vertically */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+/* Add icons for better UX */
+.edit-button::before {
+    content: '✏️'; /* Pencil icon for editing */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Delete button styling */
+.delete-button {
+    background-color: #dc3545; /* Danger red color */
+    color: white; /* White text */
+    padding: 10px 15px; /* Increased padding for button */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold text */
+    display: inline-flex; /* Flexbox for icon and text alignment */
+    align-items: center; /* Center items vertically */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red for hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.delete-button::before {
+    content: '🗑️'; /* Trash can icon for deleting */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+/* Form button styling */
+form button {
+    background-color: #dc3545; /* Red background for danger */
+    color: white; /* White text */
+    padding: 5px 10px; /* Padding for button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer on hover */
+}
+
+form button:hover {
+    background-color: #c82333; /* Darker red for hover */
+}
+
+/* Success and error messages */
+.success, .error {
+    padding: 10px; /* Padding for messages */
+    margin-top: 15px; /* Margin above messages */
+    text-align: center; /* Centered text */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.success {
+    background-color: #d4edda; /* Light green background */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb; /* Border for success */
+}
+
+.error {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Border for error */
+}
+
+/* Login page styles */
 .login-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-    margin: 50px auto; /* Center the login box */
+    max-width: 400px; /* Max width of the login form */
+    margin: 50px auto; /* Center the container */
+    padding: 20px; /* Padding for the container */
+    background-color: #fff; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-h2 {
-    margin-bottom: 20px;
-    color: #333;
+.login-container h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Margin below the heading */
 }
 
 .input-group {
-    margin-bottom: 15px;
-    text-align: left;
+    margin-bottom: 15px; /* Space between input groups */
 }
 
-label {
-    font-size: 14px;
-    color: #555;
+.input-group label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below the label */
 }
 
-input[type="text"], input[type="password"], input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
+.input-group input {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
 }
 
-/* Styles for upload section */
-.upload-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    margin: 20px auto; /* Center the upload box */
+/* Register page styles */
+.register-container {
+    max-width: 400px; /* Max width of the registration form */
+    margin: 50px auto; /* Center the container */
+    padding: 20px; /* Padding for the container */
+    background-color: #fff; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.upload-header {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+.register-container h2 {
+    text-align: center; /* Center the heading */
+    margin-bottom: 20px; /* Margin below the heading */
 }
 
 button[type="submit"] {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
+    width: 100%; /* Full width button */
+    background-color: #007bff; /* Primary blue color */
+    color: white; /* White text */
+    padding: 10px; /* Padding for button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer on hover */
+    font-weight: bold; /* Bold text */
 }
 
 button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Darker blue for hover */
 }
 
+/* Error message styling */
 #error-message {
-    color: red;
-    margin-top: 10px;
-}
-
-/* Additional styles for error message on upload */
-.upload-error {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
+    color: #dc3545; /* Red color for error messages */
+    text-align: center; /* Center the error message */
+    margin-top: 10px; /* Space above error message */
 }

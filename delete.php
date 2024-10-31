@@ -38,16 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_file'])) {
         // Check if the delete was successful
         if ($stmt->affected_rows > 0) {
             // Set a success message in session and redirect
-            $_SESSION['message'] = "Document deleted successfully.";
+            $_SESSION['message'] = "Documento deletado com sucesso.";
         } else {
             // Handle error in deleting from database
-            $_SESSION['error'] = "Failed to delete the document from the database.";
+            $_SESSION['error'] = "Falha ao deletar documento.";
         }
 
         $stmt->close();
     } else {
         // Handle the case where the document does not exist or does not belong to the user
-        $_SESSION['error'] = "Document not found or you do not have permission to delete it.";
+        $_SESSION['error'] = "Documento não encontrado ou falta de permissão.";
     }
 
     header("Location: dashboard.php");

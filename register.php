@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     if ($stmt->execute()) {
         // Registration successful
         $_SESSION['message'] = "Registro realizado com sucesso. Você pode fazer login agora.";
-        header("Location: dashboard.php"); // Redirect to login page
+        header("Location: dashboard.php"); // Redirect to dashboard
         exit();
     } else {
         // Handle error in insertion
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
