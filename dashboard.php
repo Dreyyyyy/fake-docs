@@ -43,8 +43,8 @@ $stmt->close();
         <h1>Bem-vindo ao FakeDocs, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
         <nav>
             <div class="nav-links">
-                <a href="logout.php">Deslogar</a>
-                <a href="create.php">Criar Novo Documento</a>
+                <a href="logout.php" class="nav-link logout">Deslogar</a>
+                <a href="create.php" class="nav-link create">Criar Novo Documento</a>
             </div>
         </nav>
     </header>

@@ -90,8 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
 <body>
     <header>
         <h1>Criar Novo Documento</h1>
-        <nav>
-            <a href="logout.php">Deslogar</a>
+        <nav class="nav-links"> <!-- Add nav-links class -->
+            <a href="logout.php" class="logout">Deslogar</a>
+            <a href="dashboard.php" class="dashboard">Voltar para o painel</a>
         </nav>
     </header>
     <main>
@@ -106,13 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_file'])) {
             </div>
             <button type="submit" name="create_file">Criar</button>
         </form>
-        <p><a href="dashboard.php">Voltar para o painel</a></p>
 
         <!-- Display error message if it exists -->
         <?php if (isset($_SESSION['error'])): ?>
             <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
         <?php endif; ?>
-        
         <!-- Display success message if it exists -->
         <?php if (isset($_SESSION['message'])): ?>
             <p style="color: green;"><?php echo $_SESSION['message']; unset($_SESSION['message']); ?></p>
