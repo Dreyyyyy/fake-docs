@@ -35,9 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $stmt->bind_param("ss", $username, $hashedPassword);
     
     if ($stmt->execute()) {
-        // Registration successful
-        $_SESSION['message'] = "Registro realizado com sucesso. Você pode fazer login agora.";
-        header("Location: dashboard.php"); // Redirect to dashboard
+        // Registration successful, get the user ID
+        $userId = $stmt->insert_id; // Fetch the newly created user ID
+
+        // Set session variables for the logged-in user
+        $_SESSION['user_id'] = $userId;
+        $_SESSION['username'] = $username;
+
+        // Redirect to the dashboard
+        header("Location: dashboard.php");
         exit();
     } else {
         // Handle error in insertion
@@ -70,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             </div>
             <button type="submit" name="register">Registrar</button>
         </form>
-        <p><a href="dashboard.php">Já tem uma conta? Faça login</a></p>
+        <p><a href="index.php">Já tem uma conta? Faça login</a></p>
 
         <!-- Display success/error messages -->
         <?php if (isset($_SESSION['error'])): ?>

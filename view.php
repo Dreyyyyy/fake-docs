@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 // Redirect to login page if not logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_file'])) {
 </head>
 <body>
     <header>
-        <h1>Visualizar Documento</h1>
-        <nav>
-            <a href="dashboard.php">Voltar para o painel</a>
+        <h1>Criar Novo Documento</h1>
+        <nav class="nav-links"> <!-- Add nav-links class -->
+            <a href="dashboard.php" class="dashboard">Voltar ao Dashboard</a>
         </nav>
     </header>
     <main>

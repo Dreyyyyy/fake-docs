@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 // Redirect to login page if not logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -38,13 +38,13 @@ $stmt->close();
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Apply the .dashboard-header class here -->
     <header class="dashboard-header">
         <h1>Bem-vindo ao FakeDocs, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
         <nav>
             <div class="nav-links">
-                <a href="logout.php" class="nav-link logout">Deslogar</a>
+                <a href="user.php" class="nav-link">Editar Perfil</a> <!-- Link to user.php -->
                 <a href="create.php" class="nav-link create">Criar Novo Documento</a>
+                <a href="logout.php" class="nav-link logout">Deslogar</a>
             </div>
         </nav>
     </header>
